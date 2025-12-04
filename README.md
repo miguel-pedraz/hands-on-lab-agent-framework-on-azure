@@ -10,6 +10,10 @@ Or view it online: `https://aka.ms/ws?src=gh:microsoft/hands-on-lab-agent-framew
 
 ## 📋 Prerequisites
 
+### Dev Container
+
+You can use the provided dev container configuration to set up a consistent development environment. This is especially useful if you are using GitHub Codespaces or Visual Studio Code with the Remote - Containers extension.
+
 ### Local Development Tools
 
 | Tool | Description | Installation |
