@@ -251,12 +251,7 @@ Let's run the agent with a simple prompt to analyze a first ask:
 TODO
 ```
 
-
-The final `main.py` should look like this:
-
-```python
-TODO
-```
+The final `main.py` file can be found in `solution/lab_1.py`.
 
 Now, run your agent by opening a terminal and inside the `src` folder:
 
@@ -327,6 +322,8 @@ devui main.py
 
 You should notice that the output is now structured according to the `IssueAnalyzer` class you defined.
 
+The final `main.py` file can be found in `solution/lab_2.py`.
+
 ---
 
 ## Add native tools
@@ -378,6 +375,8 @@ As you can see in the `Tools` tab of Dev UI, the agent used the `calculate_time_
 
 Your IssueAnalyzerAgent is now more precise and reliable!
 
+The final `main.py` file can be found in `solution/lab_3.py`.
+
 ---
 
 ## Add MCP tool
@@ -388,20 +387,122 @@ To do that, you will use the MCP GitHub tool provided by GitHub and create a new
 
 ### Get a GitHub PAT (Personal Access Token)
 
+To authenticate to GitHub, you need to create a Personal Access Token (PAT) with the appropriate permissions. This PAT will only need to have access to your repository (result of the fork you did at the beginning of the workshop) and read/write access to issues.
 
+To do so, go to your GitHub account settings, then to **Developer Settings** > **Personal Access Tokens** > **Fine-grained tokens** and create a new token with the following settings:
 
+- Give it a name, e.g., `Agent Framework Workshop Token`
+- Set the expiration to `30 days`
+- Under **Repository access**, select `Only select repositories` and choose the repository you forked
+- Under **Permissions**, set the following:
+  - Issues: `Read and write`
+
+Once the token is created, make sure to copy it and paste it inside the `.env` file in the `GITHUB_PAT` environment variable. Also, set the `GITHUB_REPOSITORY` environment variable to the format `owner/repo`, e.g., `your-username/your-forked-repo`.
+
+### Create the GitHubAgent
+
+Now, let's create the GitHubAgent inside the `main.py` file. Just after the creation of the IssueAnalyzerAgent, add the following code:
+
+```python
+TODO
+```
+
+As you can see, you dynamically load the MCP GitHub tool, pass the authentication parameters, and create the agent using this tool.
+
+To test the GitHubAgent, update the Dev UI setup to run the GitHubAgent instead of the IssueAnalyzerAgent:
+
+```python
+TODO
+```
+
+Now, run your agent again:
+
+```bash
+devui main.py
+```
+
+If you ask the agent to create a ticket, it should create a new issue in your GitHub repository!
+
+IMAGE
+
+The final `main.py` file can be found in `solution/lab_4.py`.
 
 ---
 
 ## Create a group chat workflow
 
----
+You have now two agents: the IssueAnalyzerAgent to analyze issues and the GitHubAgent to create tickets in GitHub. To build a complete helpdesk solution, you need to orchestrate these two agents to work together in a group chat. 
 
-## Add Dev UI integration for your group chat
+To do that you will use a mechanism called Group Chat Workflow provided by the Agent Framework.
+
+This will allow the agents to communicate and collaborate to handle ask in their own chat.
+
+Let's create the `GroupChatBuilder` inside the `main.py` file. Just after the creation of the GitHubAgent, add the following code:
+
+```python
+TODO
+```
+
+As you can see, you create a group chat workflow with the IssueAnalyzerAgent and the GitHubAgent. 
+As you can see, the agents are guided by a manager agent that will route the requests to the appropriate agent based on the prompt.
+
+Now, update the Dev UI setup to run the group chat workflow instead of the individual agents:
+
+```python
+TODO
+```
+
+Now, run your agent again:
+
+```bash
+devui main.py
+```
+
+You can now interact with the group chat workflow. The manager agent will route your requests to the appropriate agent based on the prompt.
+
+The final `main.py` file can be found in `solution/lab_5.py`.
 
 ---
 
 ## Orchestrate with a sequencial workflow
+
+Let's go a step further and add one more agent in the picture. You will add an MSLearnAgent that will provide relevant documentation from Microsoft Learn to help the agents answer user requests. This agent will use the MCP Learn tool.
+
+First, create the MSLearnAgent inside the `main.py` file. Just after the creation of the GitHubAgent, add the following code:
+
+```python
+TODO
+```
+
+As you can see, you dynamically load the MCP Learn tool, without authentication for this one, as it's totally open, and create the agent using this tool.
+
+Then, let's create a sequential workflow that will first, call the MSLearnAgent and then the group of agents containing the IssueAnalyzerAgent and the GitHubAgent.
+
+Let's first transform the workflow containing the IssueAnalyzerAgent and the GitHubAgent into an agent so it can be called inside another workflow.
+
+```python
+TODO
+```
+
+Then, create the sequential workflow:
+
+```python
+TODO
+```
+
+Update the Dev UI setup to run the sequential workflow instead of the group chat workflow:
+
+```python
+TODO
+```
+
+Finally, run your agent again:
+
+```bash
+devui main.py
+```
+
+The final `main.py` file can be found in `solution/lab_6.py`.
 
 ---
 
