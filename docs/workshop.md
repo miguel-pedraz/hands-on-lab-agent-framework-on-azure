@@ -8,19 +8,18 @@ level: beginner # Required. Can be 'beginner', 'intermediate' or 'advanced'
 navigation_numbering: false
 authors: # Required. You can add as many authors as needed
   - Olivier Mertens
+  - David Rei
   - Damien Aicheh
 contacts: # Required. Must match the number of authors
   - "@olmertens"
+  - "@reidav"
   - "@damienaicheh"
 duration_minutes: 300
-tags: microsoft foundry, agent framework, ai search, managed redis, csu, codespace, devcontainer
+tags: microsoft foundry, agent framework, ai search, ag-ui, dev-ui, csu, codespace, devcontainer
 navigation_levels: 3
 banner_url: assets/banner.jpg
 audience: developers, architects, AI engineers
-sections_title:
-  - Introduction
-  - Prerequisites
-  - Deploy Infrastructure
+
 ---
 
 # Product Hands-on Lab - Agent Framework on Azure
@@ -141,7 +140,7 @@ az account show
 
 ---
 
-## Deploy the Infrastructure
+### Deploy the Infrastructure
 
 First, you need to initialize the Terraform infrastructure by running the following commands.
 
@@ -192,3 +191,64 @@ terraform apply -auto-approve
 > The infrastructure deployment may take 15-30 minutes to complete depending on the Azure region and resource availability.
 
 </div>
+
+Scénario : “Helpdesk Ops Assistant”
+Tu construis un mini‑helpdesk piloté par agents qui traite des tickets internes avec des FAQ d’entreprise (AI Search), un carnet d’actions IT (MCP server) et des outils natifs.
+
+
+Agent 1 – Orchestrator : route les requêtes et choisit le bon flux (Solo vs. Group Chat). 
+Agent 2 – Complexity Analyst (solo) : analyse le ticket, produit un output structuré (data contract) et propose la stratégie (réponse directe, création de ticket, escalade, docs Learn à citer). 
+Agent 3 – Learn Agent (MCP mslearn) : interroge la connaissance via Foundry IQ (et/ou un serveur MCP “mslearn”) pour fournir des citations Learn pertinentes. 
+Agent 4 – GitHub Agent (MCP github) : exécute les actions de ticketing GitHub (issue, labels, commentaires), en s’appuyant sur les éléments fournis par les 2 autres agents.
+
+---
+
+## Create your first agent
+
+---
+
+## Add Dev UI integration
+
+---
+
+## Add response format
+
+---
+
+## Add native tools
+
+---
+
+## Add MCP tool
+
+---
+
+## Create a group chat workflow
+
+---
+
+## Add Dev UI integration for your group chat
+
+---
+
+## Orchestrate with a sequencial workflow
+
+---
+
+## Add your own knowledge base with RAG
+
+---
+
+## Add observability with OpenTelemetry
+
+---
+
+## Evaluate your agent
+
+---
+
+## Add AG UI integration
+
+---
+
+## Bonus: Agent-to-Agent Communication
