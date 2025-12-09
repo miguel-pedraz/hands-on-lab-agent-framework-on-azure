@@ -26,156 +26,130 @@ audience: developers, architects, AI engineers
 
 Welcome to this hands-on lab! In this workshop, you will learn how to build agentic applications using the Agent Framework on Azure.
 
+
+
+Scénario : “Helpdesk Ops Assistant”
+Tu construis un mini‑helpdesk piloté par agents qui traite des tickets internes avec des FAQ d’entreprise (AI Search), un carnet d’actions IT (MCP server) et des outils natifs.
+
+
+Agent 1 – Orchestrator : route les requêtes et choisit le bon flux (Solo vs. Group Chat). 
+Agent 2 – Complexity Analyst (solo) : analyse le ticket, produit un output structuré (data contract) et propose la stratégie (réponse directe, création de ticket, escalade, docs Learn à citer). 
+Agent 3 – Learn Agent (MCP mslearn) : interroge la connaissance via Foundry IQ (et/ou un serveur MCP “mslearn”) pour fournir des citations Learn pertinentes. 
+Agent 4 – GitHub Agent (MCP github) : exécute les actions de ticketing GitHub (issue, labels, commentaires), en s’appuyant sur les éléments fournis par les 2 autres agents.
+
+
 ---
 
 ## Prerequisites
 
-### 🖥️ Local Development Environment
+Before starting this lab, be sure to set your Azure environment :
 
-Before starting this workshop, ensure you have the following tools installed on your machine:
+- An Azure Subscription with the **Contributor** role to create and manage the labs' resources and deploy the infrastructure as code
+- Register the Azure providers on your Azure Subscription if not done yet: `Microsoft.CognitiveServices`.
 
-#### Required Tools
+To retrieve the lab content :
 
-| Tool | Description | Installation Link |
-|------|-------------|-------------------|
-| **Azure CLI** | Command-line interface for Azure | [Install Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli) |
-| **Terraform** | Infrastructure as Code tool | [Install Terraform on Azure](https://learn.microsoft.com/azure/developer/terraform/quickstart-configure) |
-| **Git** | Version control system | [Install Git](https://learn.microsoft.com/devops/develop/git/install-and-set-up-git) |
-| **Visual Studio Code** | Code editor | [Download VS Code](https://code.visualstudio.com/download) |
+- A Github account (Free, Team or Enterprise)
+- Create a [fork][repo-fork] of the repository from the **main** branch to help you keep track of your changes
 
-<div class="tip" data-title="Windows Installation">
+3 development options are available:
+  - 🥇 *Preferred method* : Pre-configured GitHub Codespace 
+  - 🥈 Local Devcontainer
+  - 🥉 Local Dev Environment with all the prerequisites detailed below
 
-> You can install these tools using `winget` in PowerShell:
-> ```powershell
-> winget install -e --id Microsoft.AzureCLI
-> winget install -e --id Hashicorp.Terraform
-> winget install -e --id Git.Git
-> winget install -e --id Microsoft.VisualStudioCode
-> ```
+<div class="tip" data-title="Tips">
 
-</div>
-
-### 🧩 Visual Studio Code Extensions
-
-Install the following extensions in Visual Studio Code:
-
-#### Required Extensions
-
-| Extension | ID | Purpose |
-|-----------|-----|---------|
-| **GitHub Copilot** | `GitHub.copilot` | AI-assisted coding |
-| **GitHub Copilot Chat** | `GitHub.copilot-chat` | Interactive AI chat |
-| **HashiCorp Terraform** | `HashiCorp.terraform` | Terraform syntax & IntelliSense |
-| **Azure Account** | `ms-vscode.azure-account` | Azure sign-in integration |
-| **Azure Tools** | `ms-vscode.vscode-node-azure-pack` | Azure development tools |
-
-#### Recommended Extensions for AI Development
-
-| Extension | ID | Purpose |
-|-----------|-----|---------|
-| **AI Toolkit** | `ms-windows-ai-studio.windows-ai-studio` | AI model development & testing |
-| **Azure MCP Server** | `ms-azuretools.azure-mcp` | Azure Model Context Protocol server |
-| **Azure Learn MCP** | `ms-azuretools.vscode-azure-github-copilot` | Azure documentation & best practices |
-| **Python** | `ms-python.python` | Python language support |
-| **Jupyter** | `ms-toolsai.jupyter` | Jupyter notebook support |
-| **Pylance** | `ms-python.vscode-pylance` | Python IntelliSense |
-
-<div class="task" data-title="Install Extensions">
-
-> Install extensions via command line:
-> ```powershell
-> # Required Extensions
-> code --install-extension GitHub.copilot
-> code --install-extension GitHub.copilot-chat
-> code --install-extension HashiCorp.terraform
-> code --install-extension ms-vscode.azure-account
-> code --install-extension ms-vscode.vscode-node-azure-pack
+> To focus on the main purpose of the lab, we encourage the usage of devcontainers/codespace as they abstract the dev environment configuration, and avoid potential local dependencies conflict.
 > 
-> # Recommended AI Extensions
-> code --install-extension ms-windows-ai-studio.windows-ai-studio
-> code --install-extension ms-azuretools.azure-mcp
-> code --install-extension ms-azuretools.vscode-azure-github-copilot
-> code --install-extension ms-python.python
-> code --install-extension ms-toolsai.jupyter
-> code --install-extension ms-python.vscode-pylance
-> ```
+> You could decide to run everything without relying on a devcontainer : To do so, make sure you install all the prerequisites detailed below.
 
 </div>
 
-### ☁️ Azure Requirements
+### 🥇 : Pre-configured GitHub Codespace
 
-- An active Azure subscription with **Owner** or **Contributor** role
-- Sufficient quota for the following services:
-  - Azure AI Foundry
-  - Azure AI Search
-  - Azure Managed Redis
-  - Azure OpenAI models
+To use a Github Codespace, you will need :
+- [A GitHub Account][github-account]
 
-### ✅ Verification
+Github Codespace offers the ability to run a complete dev environment (Visual Studio Code, Extensions, Tools, Secure port forwarding etc.) on a dedicated virtual machine. 
+The configuration for the environment is defined in the `.devcontainer` folder, making sure everyone gets to develop and practice on identical environments : No more conflict on dependencies or missing tools ! 
 
-After installation, verify your setup by running these commands:
+Every Github account (even the free ones) grants access to 120 vcpu hours per month, _**for free**_. A 2 vcpu dedicated environment is enough for the purpose of the lab, meaning you could run such environment for 60 hours a month at no cost!
 
-```powershell
-# Check Azure CLI
-az --version
+To get your codespace ready for the labs, here are a few steps to execute : 
+- After you forked the repo, click on `<> Code`, `Codespaces` tab and then click on the `+` button:
 
-# Check Terraform
-terraform --version
+![codespace-new](./assets/codespace-new.png)
 
-# Check Git
-git --version
+- You can also provision a beefier configuration by defining creation options and select the **Machine Type** you like : 
 
-# Login to Azure (replace with your tenant)
-az login --tenant <your-tenant-id-or-domain.com>
+![codespace-configure](./assets/codespace-configure.png)
 
-# Display your account details
-az account show
-```
+### 🥈 : Using a local Devcontainer
 
-<div class="warning" data-title="Important">
+This repo comes with a Devcontainer configuration that will let you open a fully configured dev environment from your local Visual Studio Code, while still being completely isolated from the rest of your local machine configuration : No more dependancy conflict.
+Here are the required tools to do so : 
 
-> Make sure you are logged into the correct Azure subscription before proceeding with the infrastructure deployment.
+- [Git client][git-client] 
+- [Docker Desktop][docker-desktop] running
+- [Visual Studio Code][vs-code] installed on your machine
 
-</div>
+Start by cloning the repository you just forked on your local Machine and open the local folder in Visual Studio Code.
+Once you have cloned the repository locally, make sure Docker Desktop is up and running and open the cloned repository in Visual Studio Code.  
 
----
+You will be prompted to open the project in a Dev Container. Click on `Reopen in Container`. 
 
-### Deploy the Infrastructure
+If you are not prompted by Visual Studio Code, you can open the command palette (`Ctrl + Shift + P`) and search for `Reopen in Container` and select it: 
 
-First, you need to initialize the Terraform infrastructure by running the following commands.
+![devcontainer-reopen](./assets/devcontainer-reopen.png)
 
-### Option 1: Local Environment
+### 🥉 : Using your own local environment
 
-Login to your Azure account:
+The following tools and access will be necessary to run the lab on a local environment :  
+
+- [Git client][git-client] 
+- [Visual Studio Code][vs-code] installed
+- [Azure CLI][az-cli-install] installed on your machine
+- [Python 3.13][download-python] installed on your machine
+- [UV package manager][download-uv] installed on your machine
+- [Terraform][download-terraform] installed on your machine
+
+Once you have set up your local environment, you can clone the repository you just forked on your machine, and open the local folder in Visual Studio Code and head to the next step. 
+
+### Sign in to Azure
+
+> - Log into your Azure subscription in your environment using Azure CLI and on the [Azure Portal][az-portal] using your credentials.
+> - Instructions and solutions will be given for the Azure CLI, but you can also use the Azure Portal if you prefer.
+> - Register the Azure providers on your Azure Subscription if not done yet: `Microsoft.CognitiveServices`
 
 ```bash
+# Login to Azure : 
+# --tenant : Optional | In case your Azure account has access to multiple tenants
+
+# Option 1 : Local Environment 
 az login --tenant <yourtenantid or domain.com>
-```
-
-### Option 2: GitHub Codespace
-
-You might need to specify `--use-device-code` parameter to ease the Azure CLI authentication process:
-
-```bash
+# Option 2 : Github Codespace : you might need to specify --use-device-code parameter to ease the az cli authentication process
 az login --use-device-code --tenant <yourtenantid or domain.com>
 
 # Display your account details
 az account show
+# Select your Azure subscription
+az account set --subscription <subscription-id>
+
+# Register the following Azure providers if they are not already
+
+# Azure Cognitive Services
+az provider register --namespace 'Microsoft.CognitiveServices'
 ```
 
-### Set Environment Variables
+### Deploy the infrastructure
 
-Set the `ARM_SUBSCRIPTION_ID` environment variable to your Azure subscription ID:
+First, you need to initialize the terraform infrastructure by running the following command:
 
 ```bash
+# Set the subscription ID as an environment variable
 export ARM_SUBSCRIPTION_ID=$(az account show --query id -o tsv)
-```
 
-### Deploy with Terraform
-
-Navigate to the `infra` directory and initialize Terraform:
-
-```bash
+# Initialize terraform
 cd infra && terraform init
 ```
 
@@ -186,20 +160,19 @@ Then run the following command to deploy the infrastructure:
 terraform apply -auto-approve
 ```
 
-<div class="info" data-title="Deployment Time">
+The deployment should take around 5 minutes to complete.
 
-> The infrastructure deployment may take 15-30 minutes to complete depending on the Azure region and resource availability.
-
-</div>
-
-Scénario : “Helpdesk Ops Assistant”
-Tu construis un mini‑helpdesk piloté par agents qui traite des tickets internes avec des FAQ d’entreprise (AI Search), un carnet d’actions IT (MCP server) et des outils natifs.
-
-
-Agent 1 – Orchestrator : route les requêtes et choisit le bon flux (Solo vs. Group Chat). 
-Agent 2 – Complexity Analyst (solo) : analyse le ticket, produit un output structuré (data contract) et propose la stratégie (réponse directe, création de ticket, escalade, docs Learn à citer). 
-Agent 3 – Learn Agent (MCP mslearn) : interroge la connaissance via Foundry IQ (et/ou un serveur MCP “mslearn”) pour fournir des citations Learn pertinentes. 
-Agent 4 – GitHub Agent (MCP github) : exécute les actions de ticketing GitHub (issue, labels, commentaires), en s’appuyant sur les éléments fournis par les 2 autres agents.
+[az-cli-install]: https://learn.microsoft.com/en-us/cli/azure/install-azure-cli
+[az-portal]: https://portal.azure.com
+[vs-code]: https://code.visualstudio.com/
+[azure-function-vs-code-extension]: https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions
+[docker-desktop]: https://www.docker.com/products/docker-desktop/
+[repo-fork]: https://github.com/microsoft/hands-on-lab-agent-framework-on-azure/fork
+[git-client]: https://git-scm.com/downloads
+[github-account]: https://github.com/join
+[download-python]: https://www.python.org/downloads/
+[download-uv]: https://docs.astral.sh/uv/
+[download-terraform]: https://developer.hashicorp.com/terraform/install
 
 ---
 
