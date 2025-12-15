@@ -30,6 +30,25 @@ Welcome to this hands-on lab! In this workshop, you will learn how to build agen
 
 In this hands-on lab, you will build a **Helpdesk Ops Assistant** powered by AI agents. This multi-agent system will handle internal support tickets by leveraging enterprise best practices (RAG), MCP servers, and native tools to provide intelligent assistance.
 
+But firstly what's an AI agent?
+
+An **AI agent** is a software component that uses a generative AI model to understand an input (a user request, an event, or another agent message), reason about what to do next, and then **take actions**.
+In practice, an agent becomes useful when it can combine:
+
+- **Knowledge** (for example, retrieving guidance or documentation)
+- **Tools** (calling functions/APIs to do real work)
+
+In this workshop, you will build multiple agents and orchestrate them so the system can analyze a ticket, look up relevant documentation, and create/update GitHub issues.
+
+<div class="tip" data-title="Go deeper">
+
+> If you want a broader (non-code) view of what an AI agent is and how to adopt agents in an organization, read: 
+> [AI agent adoption (Cloud Adoption Framework)](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai-agents/)
+>
+> It explains what makes agents different from classic RAG (agents decide *which* knowledge and tools to use step-by-step), outlines the core building blocks (model, instructions, retrieval/knowledge, actions/tools, memory), and provides guidance across the lifecycle: **plan**, **govern & secure**, **build**, and **operate** agents.
+
+</div>
+
 <details>
 <summary><strong>Context (optional): Why LLMs (GenAI agents) are relevant here</strong></summary>
 
@@ -180,6 +199,12 @@ If you are not prompted by Visual Studio Code, you can open the command palette 
 ### 🥉 : Using your own local environment
 
 The following tools and access will be necessary to run the lab on a local environment :  
+
+<div class="tip" data-title="Windows note">
+
+> If you're installing prerequisites with `winget`, open **Windows PowerShell as Administrator**.
+
+</div>
 
 - [Git client][git-client] 
 - [Visual Studio Code][vs-code] installed
@@ -975,7 +1000,7 @@ az group delete --name <resource-group>
 <details>
 <summary><strong>Information (optional): Time to brag </strong></summary>
 
-If you have finished you gained a GG from our mascott ! 
+If you have finished you gained a GG from our mascott Bits ! 
 
 [![gg-mascott](./assets/xmasbit.jpeg)](./assets/xmasbit.jpeg)
 
@@ -991,5 +1016,7 @@ Congratulations! You have successfully completed this hands-on lab on building a
 - [Agent framework for beginners](aka.ms/ai-agents-beginners)
 - [Get Started with Agent Framework](https://aka.ms/AgentFramework)
 - [Agent Framework Documentation](https://aka.ms/AgentFramework/Docs)
-- [Announcement Blog](https://aka.ms/AgentFramework/PuPr)
-- [Watch Sessions On-Demand](https://aka.ms/AgentFramework/AIShow)
+- [Announcement Blog Agent framework](https://aka.ms/AgentFramework/PuPr)
+- [Watch Sessions On-Demand Agent framework](https://aka.ms/AgentFramework/AIShow)
+- [MCP for Beginners (GitHub)](https://github.com/microsoft/mcp-for-beginners/)
+- [MCP overview video (YouTube)](https://www.youtube.com/watch?v=VfZlglOWWZw&t=3s)
