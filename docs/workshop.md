@@ -410,6 +410,12 @@ serve(entities=[issue_analyzer_agent], port=8090, auto_open=True, tracing_enable
 
 Now if you run your agent again:
 
+<div class="tip" data-title="Tip">
+
+> Before running the command, make sure you **save** any newly created or edited files (for example `main.py`, `models/issue_analyzer.py`, `tools/time_per_issue_tools.py`).
+
+</div>
+
 ```bash
 uv run python main.py
 ```
@@ -502,6 +508,8 @@ You can now run your agent again:
 ```bash
 uv run python main.py
 ```
+
+
 
 You should notice that the output is now structured according to the `IssueAnalyzer` class you defined.
 
