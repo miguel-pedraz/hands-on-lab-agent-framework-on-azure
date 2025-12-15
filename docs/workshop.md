@@ -285,17 +285,7 @@ Then run the following command to deploy the infrastructure:
 terraform apply -auto-approve
 ```
 
-<div class="task" data-title="Task: record and display the resource group name">
-
-> Save the resource group name now — you will need it later for cleanup.
->
-> ```bash
-> cd infra
-> export RESOURCE_GROUP_NAME="$(terraform output -raw resource_group_name)"
-> echo "$RESOURCE_GROUP_NAME"
-> ```
-
-</div>
+HERE
 
 The deployment should take around 5 minutes to complete.
 
@@ -1069,20 +1059,6 @@ To do so, click on `delete resource group` in the Azure Portal to delete all the
 # Delete the resource group with all the resources
 az group delete --name <resource-group>
 ```
-
-<div class="tip" data-title="Verify cleanup">
-
-> Resource group deletion removes **all** resources created by the lab (including your Microsoft Foundry account, project, and model deployments).
->
-> To confirm the deletion has completed:
->
-> ```bash
-> az group exists --name <resource-group>
-> ```
->
-> It should return `false`.
-
-</div>
 
 <details>
 <summary><strong>Information (optional): Time to brag </strong></summary>
