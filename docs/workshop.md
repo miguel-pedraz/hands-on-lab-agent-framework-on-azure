@@ -699,7 +699,11 @@ If you want to go deeper:
 To authenticate to GitHub, you need to create a Personal Access Token (PAT) with the appropriate permissions. This PAT will only need to have access to your repository (result of the fork you did at the beginning of the workshop) and read/write access to issues.
 This PAT is personal to your github account and will be used by the GitHub MCP tool to authenticate requests to GitHub.
 
-To do so, go to your GitHub account settings, then to **Developer Settings** > **Personal Access Tokens** > **Fine-grained tokens** and create a new token with the following settings:
+To do so, go to your GitHub account settings
+
+[![developer_settings_github](./assets/developer_settings_github.png)](./assets/developer_settings_github.png)
+
+then to **Developer Settings** > **Personal Access Tokens** > **Fine-grained tokens** and create a new token with the following settings:
 
 - Give it a name, e.g., `Agent Framework Workshop Token`
 - Set the expiration to `30 days`
