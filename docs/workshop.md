@@ -285,8 +285,6 @@ Then run the following command to deploy the infrastructure:
 terraform apply -auto-approve
 ```
 
-HERE
-
 The deployment should take around 5 minutes to complete.
 
 [ms-python-extension]: https://marketplace.visualstudio.com/items?itemName=ms-python.python
@@ -1084,4 +1082,5 @@ Congratulations! You have successfully completed this hands-on lab on building a
 - [MCP for Beginners (GitHub)](https://github.com/microsoft/mcp-for-beginners/)
 
 - [MCP overview video (YouTube)](https://www.youtube.com/watch?v=VfZlglOWWZw&t=3s)
+
 
